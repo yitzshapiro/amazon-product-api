@@ -1,4 +1,4 @@
-# Amazon Product Api (Unofficial)
+# Amazon Product Api (Unofficial) (with added listLength)
 
 ![NPM](https://img.shields.io/npm/l/amazon-buddy.svg?style=for-the-badge) ![npm](https://img.shields.io/npm/v/amazon-buddy.svg?style=for-the-badge)
 
@@ -14,7 +14,7 @@ Very useful tool that is able to extract almost same amount of data as the offic
 
 ## Features
 
--   **Extract product data from the search result(by category, by country)**
+-   **Extract product data from the search result(by category, by country)** (including listLength)
 -   **Extract lots of single product data by using ASIN id**
 -   **Extract product reviews data by using ASIN id**
 -   **Extract list of categories**
@@ -42,13 +42,10 @@ Very useful tool that is able to extract almost same amount of data as the offic
 **Install from NPM**
 
 ```sh
-$ npm i -g amazon-buddy
-```
-
-**Install from YARN**
-
-```sh
-$ yarn global add amazon-buddy
+$ git clone https://github.com/yitzshapiro/amazon-product-api.git
+$ cd amazon-product-api
+$ npm install
+$ npm link --global
 ```
 
 ## USAGE
@@ -56,16 +53,16 @@ $ yarn global add amazon-buddy
 **Terminal**
 
 ```sh
-$ amazon-buddy --help
+$ amazon-buddy-yitz-version --help
 
-Usage: amazon-buddy <command> [options]
+Usage: amazon-buddy-yitz-version <command> [options]
 
 Commands:
-  amazon-buddy products      collect products by using keyword
-  amazon-buddy reviews [id]  collect reviews from product by using ASIN id
-  amazon-buddy asin [id]     single product details
-  amazon-buddy categories    get list of categories
-  amazon-buddy countries     get list of countries
+  amazon-buddy-yitz-version products      collect products by using keyword
+  amazon-buddy-yitz-version reviews [id]  collect reviews from product by using ASIN id
+  amazon-buddy-yitz-version asin [id]     single product details
+  amazon-buddy-yitz-version categories    get list of categories
+  amazon-buddy-yitz-version countries     get list of countries
 
 Options:
   --help, -h      help                                                 [boolean]
@@ -99,12 +96,12 @@ Options:
 
 
 Examples:
-  amazon-buddy products -k 'Xbox one'
-  amazon-buddy products -k 'Xbox one' --country 'GB'
-  amazon-buddy reviews B01GW3H3U8
-  amazon-buddy asin B01GW3H3U8
-  amazon-buddy categories
-  amazon-buddy countries
+    amazon-buddy-yitz-version products -k 'Xbox one'
+  amazon-buddy-yitz-version products -k 'Xbox one' --country 'GB'
+  amazon-buddy-yitz-version reviews B01GW3H3U8
+  amazon-buddy-yitz-version asin B01GW3H3U8
+  amazon-buddy-yitz-version categories
+  amazon-buddy-yitz-version countries
 ```
 
 #### Example 1
@@ -112,7 +109,7 @@ Examples:
 Scrape 40 products from the amazon search result by using keyword "vacuum cleaner" and save result to the CSV file
 
 ```sh
-$ amazon-buddy products -k 'vacuum cleaner' -n 40 --filetype csv
+$ amazon-buddy-yitz-version products -k 'vacuum cleaner' -n 40 --filetype csv
 ```
 
 **Output:
@@ -123,7 +120,7 @@ $ amazon-buddy products -k 'vacuum cleaner' -n 40 --filetype csv
 Scrape 40 products from the amazon search result by using keyword "vacuum cleaner" and display raw result in the terminal
 
 ```sh
-$ amazon-buddy products -k 'vacuum cleaner' -n 40 --filetype ''
+$ amazon-buddy-yitz-version products -k 'vacuum cleaner' -n 40 --filetype ''
 ```
 
 #### Example 3
@@ -131,7 +128,7 @@ $ amazon-buddy products -k 'vacuum cleaner' -n 40 --filetype ''
 Scrape 40 products from the amazon search result by using keyword "vacuum cleaner" from the Amazon.NL(Netherlands) and display raw result in the terminal
 
 ```sh
-$ amazon-buddy products -k 'vacuum cleaner' -n 40 --filetype '' --country NL
+$ amazon-buddy-yitz-version products -k 'vacuum cleaner' -n 40 --filetype '' --country NL
 ```
 
 #### Example 4
@@ -139,7 +136,7 @@ $ amazon-buddy products -k 'vacuum cleaner' -n 40 --filetype '' --country NL
 Scrape 40 products from the amazon search result from the category "Apps & Games" by using keyword "games" from the Amazon.ES(SPAIN) and display raw result in the terminal
 
 ```sh
-$ amazon-buddy products -k 'games' -n 40 --filetype '' --country ES --category mobile-apps
+$ amazon-buddy-yitz-version products -k 'games' -n 40 --filetype '' --country ES --category mobile-apps
 ```
 
 #### Example 5
@@ -148,7 +145,7 @@ Scrape 100 reviews from a product by using ASIN.
 **_NOTE: ASIN is a unique amazon product ID, it can be found in product URL or if you have scraped product list with our tool you will find it in the CSV/JSON files_**
 
 ```sh
-$ amazon-buddy reviews B01GW3H3U8 -n 100
+$ amazon-buddy-yitz-version reviews B01GW3H3U8 -n 100
 ```
 
 **Output:
@@ -159,7 +156,7 @@ reviews(B01GW3H3U8)\_1589470878252**
 Scrape 300 products from the "Xbox one" keyword with rating minimum rating 3 and maximum rating 4 and save everything to the CSV file
 
 ```sh
-$ amazon-buddy products -k 'xbox one' -n 300 --min-rating 3 --max-rating 4
+$ amazon-buddy-yitz-version products -k 'xbox one' -n 300 --min-rating 3 --max-rating 4
 ```
 
 **Output:
@@ -170,7 +167,7 @@ $ amazon-buddy products -k 'xbox one' -n 300 --min-rating 3 --max-rating 4
 Show list of all available countries
 
 ```sh
-$ amazon-buddy countries
+$ amazon-buddy-yitz-version countries
 ```
 
 **Output:**
@@ -181,7 +178,7 @@ $ amazon-buddy countries
 Show list of all available categories from the Amazon.CO.UK
 
 ```sh
-$ amazon-buddy categories --country GB
+$ amazon-buddy-yitz-version categories --country GB
 ```
 
 **Output:**
@@ -201,7 +198,7 @@ $ amazon-buddy categories --country GB
 ### Example
 
 ```javascript
-const amazonScraper = require('amazon-buddy');
+const amazonScraper = require('amazon-buddy-yitz-version');
 
 (async () => {
     try {
@@ -262,6 +259,7 @@ const amazonScraper = require('amazon-buddy');
     amazonChoice: false,
     bestSeller: false,
     amazonPrime: false,
+    listLength: 100,
     title: 'Newest Flagship Microsoft Xbox One S 1TB HDD Bundle with Two (2X) Wireless Controllers, 1-Month Game Pass Trial, 14-Day Xbox Live Gold Trial - White',
     thumbnail: 'https://m.media-amazon.com/images/I/51-JAEI1jzL._AC_UY218_.jpg'
 },...]

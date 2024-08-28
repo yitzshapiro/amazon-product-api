@@ -16,6 +16,7 @@ const startScraper = async (argv) => {
             case 'products':
             case 'reviews':
                 if (!argv.filetype) {
+                    console.log(`Total items found: ${data.listLength}`);
                     console.log(JSON.stringify(data));
                 }
                 break;
